@@ -56,7 +56,9 @@ def fetch_weather(latitude: float, longitude: float):
         resp.raise_for_status()
         data = resp.json()
     except requests.RequestException as e:
-        return None, f"Weather service unreachable: ({type(e).__name__})"
+        status = getattr(getattr(e, "response", None), "status_code", None)
+        detail = f"HTTP {status}" if status else type(e).__name__
+        return None, f"Weather service unreachable ({detail})"
 
     current = data.get("current")
     if not current:
