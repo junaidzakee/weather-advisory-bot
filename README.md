@@ -131,6 +131,14 @@ exactly the kind of gap eval testing is meant to surface.
   of inactivity, so the first request after a while may take 30-50 seconds
   to wake it back up. Subsequent requests are fast. A paid tier would avoid
   this, but wasn't necessary to demonstrate the system working correctly.
+- **Open-Meteo's free tier rate-limits by IP**, and Render's free-tier hosts
+  share IP ranges across many apps, so the deployed bot occasionally saw
+  `HTTP 429` from Open-Meteo even under light use, while local testing (a
+  personal, unshared IP) never did. `weather.py` now retries up to twice
+  with a short backoff specifically on 429s before falling through to the
+  honest `weather_failed` branch — this reduces how often it's visible, but
+  doesn't eliminate an external rate limit outside our control. A
+  production version would use a paid Open-Meteo tier or a dedicated key.
 - **Session memory is in-process (`MemorySaver`)** — resets on server
   restart, and doesn't scale across multiple server instances. Fine per the
   assignment's own scope ("not asking for persistence across restarts"),
