@@ -1,0 +1,153 @@
+
+
+sops:
+  - id: SOP-01
+    category: outdoor_exercise
+    severity: high
+    condition: >
+      Wind speed or wind gusts are at or above 40 km/h and the user is asking
+      about cycling, biking, riding a two-wheeler/scooter/moped, or any
+      similar activity on a bike.
+    advice: >
+      Flag this as a real safety risk, not a comfort issue -- strong wind and
+      gusts can destabilize a two-wheeler, especially at speed or in open
+      areas. Recommend postponing the ride or choosing a sheltered route, and
+      quote the actual wind speed and gust numbers.
+
+  - id: SOP-02
+    category: outdoor_exercise
+    severity: moderate
+    condition: >
+      UV index is 8 or higher and the user is asking about outdoor exercise
+      (running, jogging, cycling, outdoor sport/gym) that would happen
+      roughly between 11am and 4pm local time.
+    advice: >
+      Advise against unprotected outdoor exercise in that window. Recommend
+      sunscreen, a hat, and shifting the activity to early morning or
+      evening if possible.
+
+  - id: SOP-03
+    category: outdoor_exercise
+    severity: moderate
+    condition: >
+      Apparent ("feels like") temperature is 38C or higher and the user is
+      asking about strenuous outdoor exercise.
+    advice: >
+      Warn about heat-stress risk. Recommend hydration, shade breaks, lower
+      intensity, and rescheduling to cooler hours.
+
+  - id: SOP-04
+    category: outdoor_exercise
+    severity: low
+    condition: >
+      Temperature is 5C or below and the user is asking about outdoor
+      exercise.
+    advice: >
+      Note the cold and recommend layered clothing and a longer warm-up.
+      Not dangerous on its own, just worth knowing before heading out.
+
+  - id: SOP-05
+    category: travel
+    severity: moderate
+    condition: >
+      Precipitation probability is 70% or higher and the user is asking
+      about travel, commuting, or a road trip.
+    advice: >
+      Warn of likely delays and reduced visibility. Recommend checking
+      local traffic/weather alerts before departure and allowing extra time.
+
+  - id: SOP-06
+    category: travel
+    severity: moderate
+    condition: >
+      Wind gusts are 50 km/h or higher and the user is asking about travel
+      by two-wheeler, or asks generally whether it's safe to be on the road.
+    advice: >
+      Flag high-gust conditions as a road-safety concern, particularly for
+      two-wheelers and high-sided vehicles. Recommend delaying travel if
+      possible.
+
+  - id: SOP-07
+    category: travel
+    severity: critical
+    condition: >
+      A significant active weather system is present -- for example current
+      conditions show heavy precipitation, or very high precipitation
+      probability combined with strong wind/gusts, or otherwise indicate a
+      storm/cyclone/low-pressure system is affecting the location -- REGARDLESS
+      of what specific activity the user asked about (exercise, travel, or
+      anything else). This SOP can apply even if no single number is extreme
+      in isolation, if the combination clearly signals an active system.
+    advice: >
+      Treat this as the highest severity regardless of the user's original
+      question. Lead the answer with the active weather system itself, using
+      the real numbers pulled from the API, before addressing the specific
+      activity. Recommend deferring non-essential outdoor activity and
+      checking official alerts.
+
+  - id: SOP-08
+    category: vulnerable_groups
+    severity: moderate
+    condition: >
+      UV index is 6 or higher and the user mentions children, kids, elderly
+      people, or pets being outdoors (park, walk, playground).
+    advice: >
+      Note that children, elderly people, and pets are more sensitive to UV
+      and heat. Recommend shade, sunscreen for kids, paw protection for pets
+      on hot pavement, and shorter time outdoors during peak UV hours.
+
+  - id: SOP-09
+    category: vulnerable_groups
+    severity: moderate
+    condition: >
+      Temperature is 3C or below, or apparent temperature is 0C or below,
+      and the user mentions children, elderly people, or pets going outside.
+    advice: >
+      Recommend limiting time outdoors, dressing in warm layers, and
+      watching for signs of cold stress, since these groups are more
+      vulnerable to cold than a healthy adult.
+
+  - id: SOP-10
+    category: vulnerable_groups
+    severity: low
+    condition: >
+      Precipitation is present (non-zero) or precipitation probability is
+      40% or higher, and the user is asking about taking a child, elderly
+      person, or pet outside for a walk.
+    advice: >
+      Note the chance of getting caught in rain. Recommend a rain jacket, a
+      shorter outing, or an indoor alternative -- without treating it as a
+      serious hazard.
+
+  - id: SOP-11
+    category: leisure
+    severity: informational
+    condition: >
+      The user asks a fuzzy, non-numeric question about whether today is a
+      "good day" specifically for a social/leisure outing -- a picnic, an
+      outdoor hangout with friends/family, or spending time at a park --
+      where there's no single clean threshold to check against. This does
+      NOT cover chores, errands, chores-that-happen-to-be-outdoors (car
+      washing, gardening, yard work), or exercise -- those are covered by
+      other SOPs or by none at all.
+    advice: >
+      Weigh the full picture qualitatively rather than one number:
+      comfortable temperature, low chance of rain, calm wind, and
+      non-extreme UV all point toward "good"; any one of heavy rain, high
+      wind, extreme UV, or extreme temperature should shift the answer
+      toward "not ideal" or "have a backup plan." State which factors
+      tipped the judgment, using the real numbers.
+
+  - id: SOP-12
+    category: general
+    severity: informational
+    condition: >
+      The user is asking about outdoor exercise, travel, or a vulnerable
+      group being outside (the same categories covered above), but none of
+      the other SOPs' conditions are met -- i.e. conditions are
+      unremarkable for that specific category.
+    advice: >
+      Reassure the user that current conditions look fine for the activity
+      they asked about, briefly stating the relevant numbers (temperature,
+      wind, precipitation chance) so the reassurance is grounded in data,
+      not a generic "should be fine."
