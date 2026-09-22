@@ -127,6 +127,10 @@ exactly the kind of gap eval testing is meant to surface.
 
 ## Trade-offs and what I'd do next
 
+- **Deployed on Render's free tier** — the instance spins down after periods
+  of inactivity, so the first request after a while may take 30-50 seconds
+  to wake it back up. Subsequent requests are fast. A paid tier would avoid
+  this, but wasn't necessary to demonstrate the system working correctly.
 - **Session memory is in-process (`MemorySaver`)** — resets on server
   restart, and doesn't scale across multiple server instances. Fine per the
   assignment's own scope ("not asking for persistence across restarts"),
