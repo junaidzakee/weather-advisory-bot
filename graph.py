@@ -102,12 +102,6 @@ def node_extract_intent(state: BotState) -> dict:
         f"Location known from earlier in this session (may be null): {known_location}\n\n"
         f"Newest user message: {question}"
     )
-    # result = call_llm_json(system, user)
-    # return {
-    #     "in_scope": bool(result.get("in_scope", True)),
-    #     "location_query": result.get("location_query"),
-    #     "activity_summary": result.get("activity_summary") or question,
-    # }
 
     result = call_llm_json(system, user)
     

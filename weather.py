@@ -42,8 +42,8 @@ def fetch_weather(latitude: float, longitude: float):
     if latitude is None or longitude is None:
         return None, "No coordinates to fetch weather for."
         last_error = None
-        
-    for attempt in range(3):  # 1 initial try + up to 2 retries
+
+    for attempt in range(3):  
         try:
             resp = requests.get(
                 FORECAST_URL,
@@ -65,30 +65,13 @@ def fetch_weather(latitude: float, longitude: float):
             detail = f"HTTP {status}" if status else type(e).__name__
             last_error = f"Weather service unreachable ({detail})"
             if status == 429 and attempt < 2:
-                time.sleep(0.6 * (attempt + 1))  # brief, increasing pause before retrying
+                time.sleep(0.6 * (attempt + 1))  
                 continue
             break
 
     if last_error:
         return None, last_error
-    # try:
-    #     resp = requests.get(
-    #         FORECAST_URL,
-    #         params={
-    #             "latitude": latitude,
-    #             "longitude": longitude,
-    #             "current": CURRENT_FIELDS,
-    #             "hourly": HOURLY_FIELDS,
-    #             "timezone": "auto",
-    #         },
-    #         timeout=TIMEOUT_SECONDS,
-    #     )
-    #     resp.raise_for_status()
-    #     data = resp.json()
-    # except requests.RequestException as e:
-    #     status = getattr(getattr(e, "response", None), "status_code", None)
-    #     detail = f"HTTP {status}" if status else type(e).__name__
-    #     return None, f"Weather service unreachable ({detail})"
+    
 
     current = data.get("current")
     if not current:
